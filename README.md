@@ -1,6 +1,33 @@
-# Restaurant-Finder app
+# Restaurant Finder App
 
-- This is an restaurant finder app , which you input the name of the restaurant && it will show you the list of restaurants that have that name && show you the location they are found on - including those that are near you first
-- Using open API's to find restaurant && also location API to get your current location
+A lightweight, intuitive **Restaurant Finder App** that helps you search for restaurants by name and discover where they’re located — starting with those nearest to you!
 
-~ This project have helped me in understanding in how to integrate API in your project && how to use use data provided by the API's 
+Built with **HTML**, **CSS**, and **JavaScript**, the app uses open APIs for real-time restaurant data and geolocation services to enhance user experience.
+
+## Features
+
+- **Search by Name**: Enter a restaurant name and get a list of matches.
+- **Location-Based Sorting**: Results are automatically sorted by proximity — nearest restaurants show up first.
+- **Map Integration** *(optional)*: Visualize where each restaurant is located.
+- **API Integration**: Fetch data dynamically using public REST APIs for both restaurants and geolocation.
+
+## Tech Stack
+
+- **Frontend**: HTML, CSS, JavaScript
+- **APIs Used**:
+  - Restaurant data API *(e.g., Yelp Fusion, Zomato, or other open sources)*
+  - HTML5 Geolocation API
+
+## What I Learned
+
+This project was a deep dive into:
+- **Working with external APIs**: Fetching, parsing, and rendering dynamic data.
+- **User location handling**: Using browser-based geolocation and integrating it with API queries.
+- **Asynchronous JavaScript**: Managing `fetch()`, Promises, and handling real-time data updates.
+- **UX/UI considerations**: Designing for both performance and usability.
+
+## Getting Started
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/your-username/restaurant-finder-app.git
