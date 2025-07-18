@@ -30,4 +30,4 @@ This project was a deep dive into:
 
 1. Clone the repo:
    ```bash
-   git clone https://github.com/your-username/restaurant-finder-app.git
+   git clone https://github.com/mvelo-081/restaurant-finder-app.git
