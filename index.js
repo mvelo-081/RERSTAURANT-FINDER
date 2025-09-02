@@ -4,12 +4,12 @@ document.getElementById("find-restaurants").addEventListener('click', () => {
         fetchLocationCoordinates(location);
     }
     else if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showRestuarantByPosition, showError);
+        navigator.geolocation.getCurrentPosition(showRestaurantByPosition, showError);
     }
     else {
-        alert('Geolocation is not supported by the browser!')
+        alert('Geolocation is not supported by the browser!');
     }
-})
+});
 
 const fetchLocationCoordinates = (location) => {
     const nominatimEndpoint = `https://nominatim.openstreetmap.org/search?format=json&q=${location}`;
@@ -21,24 +21,24 @@ const fetchLocationCoordinates = (location) => {
                 fetchRestaurants(lat, lon);
             }
             else {
-                alert('location not found!');
+                alert('Location not found!');
             }
         })
-        .catch(Error => {
-            console.log("Error fecting location from Nominatim", error)
-        })
-}
+        .catch(error => {
+            console.log("Error fetching location from Nominatim:", error);
+        });
+};
 
-const showRestuarantByPosition = (position) => {
-    const {latitude, longitude} = position.coords;
-    fetchRestaurants(latitude, longitude)
-}
+const showRestaurantByPosition = (position) => {
+    const { latitude, longitude } = position.coords;
+    fetchRestaurants(latitude, longitude);
+};
 
 const fetchRestaurants = (latitude, longitude) => {
-    const overpassEndpoint = `http://overpass-api.de/api/interpreter?data=[out:json];node[amenity=restaurants](around:5000,${latitude},${longitude});out;`;
+    const overpassEndpoint = `https://overpass-api.de/api/interpreter?data=[out:json];node[amenity=restaurant](around:5000,${latitude},${longitude});out;`;
     fetch(overpassEndpoint)
         .then(response => response.json())
-    .then(data => {
+        .then(data => {
             const restaurants = data.elements;
             const restaurantsContainer = document.getElementById("restaurants");
             restaurantsContainer.innerHTML = "";
@@ -47,45 +47,41 @@ const fetchRestaurants = (latitude, longitude) => {
                 restaurantsContainer.innerHTML = '<p>No restaurants found nearby.</p>';
                 return;
             }
+
+            restaurants.forEach(restaurant => {
+                const card = document.createElement("div");
+                card.className = 'restaurant-card';
+
+                card.innerHTML = `
+                    <a href="https://www.openstreetmap.org/?mlat=${restaurant.lat}&mlon=${restaurant.lon}" 
+                       target="_blank" rel="noopener noreferrer">
+                        <h2>${restaurant.tags?.name || 'Unnamed Restaurant'}</h2>
+                    </a>
+                    <p>${restaurant.tags?.cuisine || "Cuisine not specified"}</p>
+                    <p>Lat: ${restaurant.lat}, Lon: ${restaurant.lon}</p>
+                `;
+
+                restaurantsContainer.appendChild(card);
+            });
         })
-
-restaurants.forEach(restaurant => {
-    const card = document.createElement("div")
-    card.className = 'restaurant-card'
-
-    // create the card
-    card.innerHTML = `
-        <a href="https://www.openstreetmap.org/mlat=${restaurant.lon}" target="_blank" rel="noopener noreferrer">
-        <h2>$(restuarant.tags.name || 'unnamed Restaurant')</h2>
-        </a>
-        <p>$(rastaurant.tags.cuisine || "Cuisine not spesified") </p>
-        <p>lat: $(restaurant.lat), lon: $(restaurant.lon)</p>
-        `;
-
-    // append the card to the container
-    restaurantsContainer.appendChild(card);
-})
-    .catch(error => {
-        console.log("Error fetching from Overpass API", error)
-    })
-    
-}
+        .catch(error => {
+            console.log("Error fetching from Overpass API:", error);
+        });
+};
 
 const showError = (error) => {
     switch (error.code) {
         case error.PERMISSION_DENIED:
-            alert("user denied the request for Geolocation!");
+            alert("User denied the request for Geolocation!");
             break;
-        case error.PERMISSION_UNAVAILABLE:
+        case error.POSITION_UNAVAILABLE:
             alert("Location information is unavailable!");
             break;
         case error.TIMEOUT:
-            alert("THE REQUEST TO GET THE USER LOCATION TIMED OUT!");
+            alert("The request to get the user location timed out!");
             break;
         case error.UNKNOWN_ERROR:
-            alert("an unkown errror occured!");
+            alert("An unknown error occurred!");
             break;
-
     }
-}
-
+};
