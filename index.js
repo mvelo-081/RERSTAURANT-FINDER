@@ -12,7 +12,7 @@ document.getElementById("find-restaurants").addEventListener('click', () => {
 })
 
 const fetchLocationCoordinates = (location) => {
-    const nominatimEndpoint = `https://nominatim.openstreetmap.org/search?format=json&q=$(location)`;
+    const nominatimEndpoint = `https://nominatim.openstreetmap.org/search?format=json&q=${location}`;
     fetch(nominatimEndpoint)
         .then(response => response.json())
         .then(data => {
@@ -35,7 +35,7 @@ const showRestuarantByPosition = (position) => {
 }
 
 const fetchRestaurants = (latitude, longitude) => {
-    const overpassEndpoint = `http://overpass-api.de/api/interpreter?data=[out:json];node[amenity=restaurants](around:5000,$(latitude),$(longitude));out;`;
+    const overpassEndpoint = `http://overpass-api.de/api/interpreter?data=[out:json];node[amenity=restaurants](around:5000,${latitude},${longitude});out;`;
     fetch(overpassEndpoint)
         .then(response => response.json())
     .then(data => {
@@ -55,7 +55,7 @@ restaurants.forEach(restaurant => {
 
     // create the card
     card.innerHTML = `
-        <a href="https://www.openstreetmap.org/mlat=$(restaurant.lon)" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.openstreetmap.org/mlat=${restaurant.lon}" target="_blank" rel="noopener noreferrer">
         <h2>$(restuarant.tags.name || 'unnamed Restaurant')</h2>
         </a>
         <p>$(rastaurant.tags.cuisine || "Cuisine not spesified") </p>
@@ -88,3 +88,4 @@ const showError = (error) => {
 
     }
 }
+
