@@ -10,7 +10,9 @@ Built with **HTML**, **CSS**, and **JavaScript**, the app uses open APIs for rea
 - **Location-Based Sorting**: Results are automatically sorted by proximity — nearest restaurants show up first.
 - **Map Integration** *(optional)*: Visualize where each restaurant is located.
 - **API Integration**: Fetch data dynamically using public REST APIs for both restaurants and geolocation.
+## live demo
 
+- [View here 🔥](https://mvelo-081.github.io/RERSTAURANT-FINDER/)
 ## Tech Stack
 
 - **Frontend**: HTML, CSS, JavaScript
